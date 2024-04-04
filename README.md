@@ -3,9 +3,9 @@ This extension adds sample time entry of current time and counts the expected ti
 
 ## Installation
 1. Clone or download this repository to your local machine.
-   `bash
+   ```bash
    git clone https://github.com/YashKakrechaInexture/pms-time-extension/
-   `
+   ```
 2. Open Google Chrome and navigate to chrome://extensions.
 3. Enable "Developer mode" by toggling the switch in the top-right corner.
 4. Click on the "Load unpacked" button.

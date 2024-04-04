@@ -1,5 +1,6 @@
 setTimeout(function() {
     console.log("table get");
+    console.log(window.matchMedia);
     console.log(getCurrentTime());
     const targetDate = getTargetDate();
 
@@ -185,11 +186,14 @@ function validateTimeCompleted(dateInStr){
 function updateColor(newTotal,totalDivTag){
     if(validateTimeCompleted(newTotal)){
         totalDivTag.style.setProperty('background','rgba(77, 171, 247, 0.15)');
-        totalDivTag.style.setProperty('color','#d0ebff');
-    }else{
-        totalDivTag.style.setProperty('background','rgba(255, 135, 135, 0.15)');
-        totalDivTag.style.setProperty('color','#ffe3e3');
+        // totalDivTag.style.setProperty('color','#d0ebff');
+        totalDivTag.style.setProperty('color','#228be6');
     }
+    // else{
+    //     totalDivTag.style.setProperty('background','rgba(255, 135, 135, 0.15)');
+    //     // totalDivTag.style.setProperty('color','#ffe3e3');
+    //     totalDivTag.style.setProperty('color','#ff0000');
+    // }
 }
 
 

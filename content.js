@@ -171,18 +171,14 @@ function validateTimeCompleted(dateInStr){
     const minMinutes = 20;
     const [hours, minutes, seconds] = dateInStr.split(':').map(Number);
     if(hours<minHours){
-        console.log('hours is less');
         return false;
     }
     if(hours>minHours){
-        console.log('hours is high');
         return true;
     }
     if(minutes>=minMinutes){
-        console.log('hours is same, minute high');
         return true;
     }
-    console.log('same hour, minute is less');
     return false;
 }
 

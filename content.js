@@ -1,7 +1,4 @@
 setTimeout(function() {
-    console.log("table get");
-    console.log(window.matchMedia);
-    console.log(getCurrentTime());
     const targetDate = getTargetDate();
 
     const table = document.querySelector('table');

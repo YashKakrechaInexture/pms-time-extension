@@ -22,6 +22,7 @@ setTimeout(function() {
             outTimes.lastChild.appendChild(sampleOutTimeDiv);
 
             const lastInTimeSpan = inTimes.lastChild.lastChild.lastChild;
+            lastInTimeSpan.id = 'lastInTime';
             const lastInTime = lastInTimeSpan.textContent.trim();
             console.log("Last time : "+lastInTime);
 
@@ -31,16 +32,16 @@ setTimeout(function() {
             const sampleDurationTimeDiv = createNewDiv('sampleDurationTime', newDuration);
             durations.lastChild.appendChild(sampleDurationTimeDiv);
 
-            const currTotal = total.lastChild.lastChild.lastChild.textContent;
+            const totalDivTag = total.lastChild.lastChild;
+            const totalSpanTag = totalDivTag.lastChild;
+            totalSpanTag.id = 'totalTimeEntry';
+
+            const currTotal = totalSpanTag.textContent;
             console.log("Curr total time : "+currTotal);
-            
             
             const newTotal = addDates(currTotal, newDuration);
             console.log("New total : "+newTotal);
             
-            const totalDivTag = total.lastChild.lastChild;
-            const totalSpanTag = totalDivTag.lastChild;
-            totalSpanTag.id = 'totalTimeEntry';
             totalSpanTag.textContent = newTotal;
 
             updateColor(newTotal,totalDivTag);
@@ -124,21 +125,18 @@ function getDateFromSeconds(dateInSeconds){
 
 function updateTimeEachSecond(){
     const outTimeSpanTag = document.getElementById('sampleOutTime');
-    incrementSecondOfGivenTag(outTimeSpanTag);
+    const outTime = getCurrentTime();
+    outTimeSpanTag.textContent = outTime;
+
     const durationTimeSpanTag = document.getElementById('sampleDurationTime');
-    incrementSecondOfGivenTag(durationTimeSpanTag);
-    const totalTimeSpanTag = document.getElementById('totalTimeEntry');
-    incrementSecondOfGivenTag(totalTimeSpanTag);
-    updateColor(totalTimeSpanTag.textContent, totalTimeSpanTag.parentElement);
-}
-
-function incrementSecondOfGivenTag(tag){
-    const time = tag.textContent;
+    const lastInTimeTag = document.getElementById('lastInTime');
+    const duration = subtractDates(outTime,lastInTimeTag.textContent);
+    durationTimeSpanTag.textContent = duration;
     
-    const date = getDateFromString(time);
-    date.setTime(date.getTime() + 1000);
-
-    tag.textContent = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+    const totalTimeSpanTag = document.getElementById('totalTimeEntry');
+    const total = addDates(totalTimeSpanTag.textContent, duration);
+    totalTimeSpanTag.textContent = total;
+    updateColor(totalTimeSpanTag.textContent, totalTimeSpanTag.parentElement);
 }
 
 function createNewDiv(className, time){

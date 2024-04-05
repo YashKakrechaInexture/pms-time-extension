@@ -34,6 +34,7 @@ setTimeout(function() {
 
             const totalDivTag = total.lastChild.lastChild;
             const totalSpanTag = totalDivTag.lastChild;
+            total.appendChild(hiddenTotalTime(totalSpanTag.textContent));
             totalSpanTag.id = 'totalTimeEntry';
 
             const currTotal = totalSpanTag.textContent;
@@ -134,8 +135,9 @@ function updateTimeEachSecond(){
     durationTimeSpanTag.textContent = duration;
     
     const totalTimeSpanTag = document.getElementById('totalTimeEntry');
-    const total = addDates(totalTimeSpanTag.textContent, duration);
-    // totalTimeSpanTag.textContent = total;
+    const oldTotalTimeTag = document.getElementById('oldTotalTime');
+    const total = addDates(oldTotalTimeTag.textContent, duration);
+    totalTimeSpanTag.textContent = total;
     updateColor(totalTimeSpanTag.textContent, totalTimeSpanTag.parentElement);
 }
 
@@ -159,6 +161,16 @@ function createNewDiv(className, time){
     
     newDiv.appendChild(nestedDiv);
 
+    return newDiv;
+}
+
+function hiddenTotalTime(time){
+    const newDiv = document.createElement('div');
+    newDiv.style.setProperty('display','none');
+    const spanElement = document.createElement('span');
+    spanElement.id = 'oldTotalTime';
+    spanElement.textContent = time;
+    newDiv.append(spanElement);
     return newDiv;
 }
 

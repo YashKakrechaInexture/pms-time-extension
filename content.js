@@ -135,7 +135,7 @@ function updateTimeEachSecond(){
     
     const totalTimeSpanTag = document.getElementById('totalTimeEntry');
     const total = addDates(totalTimeSpanTag.textContent, duration);
-    totalTimeSpanTag.textContent = total;
+    // totalTimeSpanTag.textContent = total;
     updateColor(totalTimeSpanTag.textContent, totalTimeSpanTag.parentElement);
 }
 

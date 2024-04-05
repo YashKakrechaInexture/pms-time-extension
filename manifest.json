@@ -1,16 +1,16 @@
 {
-    "name" : "PMS Time Updater",
-    "description": "This extension adds sample time entry of current time and counts the expected time.",
-    "version" : "0.0.1",
-    "manifest_version" : 3,
-    "icons" : {
-        "128" : "logo.png"
-    },
-    "permissions": ["activeTab"],
-    "content_scripts": [
-        {
-          "matches": ["https://portal.inexture.com/time-entry"],
-          "js": ["content.js"]
-        }
-      ]
+  "name" : "PMS Time Updater",
+  "description": "This extension adds sample time entry of current time and counts the expected time.",
+  "version" : "0.0.1",
+  "manifest_version" : 3,
+  "icons" : {
+      "128" : "logo.png"
+  },
+  "permissions": ["activeTab"],
+  "content_scripts": [
+    {
+      "matches": ["https://portal.inexture.com/*"],
+      "js": ["content.js"]
+    }
+  ]
 }

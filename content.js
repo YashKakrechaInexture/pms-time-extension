@@ -1,4 +1,40 @@
-setTimeout(function() {
+let currentUrl = window.location.href;
+let intervalId;
+
+const config = {subtree: true, childList: true};
+
+const observer = new MutationObserver(function(mutations) {
+    const newUrl = window.location.href;
+    if(currentUrl !== newUrl){
+        currentUrl = newUrl;
+        if (location.href === 'https://portal.inexture.com/time-entry') {
+            startTheTimer();
+        }else{
+            close();
+        }
+    }
+});
+
+observer.observe(document, config);
+
+if (currentUrl === 'https://portal.inexture.com/time-entry') {
+    startTheTimer();
+}else{
+    close();
+}
+
+function startTheTimer() {
+    setTimeout(initTheTimer, 5000);
+}
+
+function close(){
+    if(intervalId){
+        clearInterval(intervalId);
+        intervalId = null;
+    }
+}
+
+function initTheTimer() {
     const targetDate = getTargetDate();
 
     const table = document.querySelector('table');
@@ -47,11 +83,10 @@ setTimeout(function() {
 
             updateColor(newTotal,totalDivTag);
 
-            setInterval(updateTimeEachSecond, 1000);
+            intervalId = setInterval(updateTimeEachSecond, 1000);
         }
     }
-
-}, 5000);
+}
 
 function getTargetDate(){
     const today = new Date();
@@ -157,7 +192,6 @@ function createNewDiv(className, time){
     spanElement.style = 'position: relative; font-weight: 600; text-transform: capitalize; font-size: 12px;';
     spanElement.style.setProperty('color', '#07bc07');
     spanElement.textContent = time;
-
     
     newDiv.appendChild(nestedDiv);
 

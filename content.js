@@ -55,6 +55,9 @@ function initTheTimer() {
             const newOutTime = getCurrentTime();
 
             const sampleOutTimeDiv = createNewDiv('sampleOutTime', newOutTime);
+            if(outTimes.lastChild.textContent === "NA"){
+                outTimes.lastChild.textContent = '';
+            }
             outTimes.lastChild.appendChild(sampleOutTimeDiv);
 
             const lastInTimeSpan = inTimes.lastChild.lastChild.lastChild;
@@ -66,6 +69,9 @@ function initTheTimer() {
             console.log("Curr in time : "+newDuration);
 
             const sampleDurationTimeDiv = createNewDiv('sampleDurationTime', newDuration);
+            if(durations.lastChild.textContent === "NA"){
+                durations.lastChild.textContent = '';
+            }
             durations.lastChild.appendChild(sampleDurationTimeDiv);
 
             const totalDivTag = total.lastChild.lastChild;

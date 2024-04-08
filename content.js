@@ -35,6 +35,7 @@ function close(){
 }
 
 function initTheTimer() {
+    setupWeekTimeUpdater();
     const targetDate = getTargetDate();
 
     const table = document.querySelector('table');
@@ -76,7 +77,7 @@ function initTheTimer() {
 
             const totalDivTag = total.lastChild.lastChild;
             const totalSpanTag = totalDivTag.lastChild;
-            total.appendChild(hiddenTotalTime(totalSpanTag.textContent));
+            total.appendChild(hiddenTotalTime(totalSpanTag.textContent,'oldTotalTime'));
             totalSpanTag.id = 'totalTimeEntry';
 
             const currTotal = totalSpanTag.textContent;
@@ -86,6 +87,11 @@ function initTheTimer() {
             console.log("New total : "+newTotal);
             
             totalSpanTag.textContent = newTotal;
+
+            const currentWeekTimeTag = document.getElementById('currentWeekTime');
+            const oldCurrentWeekTotal = document.getElementById('oldCurrentWeekTime');
+            const newCurrentWeekTotal = addDates(oldCurrentWeekTotal.textContent, newDuration);
+            currentWeekTimeTag.textContent = newCurrentWeekTotal;
 
             updateColor(newTotal,totalDivTag);
 
@@ -179,6 +185,11 @@ function updateTimeEachSecond(){
     const oldTotalTimeTag = document.getElementById('oldTotalTime');
     const total = addDates(oldTotalTimeTag.textContent, duration);
     totalTimeSpanTag.textContent = total;
+
+    const currentWeekTimeTag = document.getElementById('currentWeekTime');
+    const oldCurrentWeekTotal = document.getElementById('oldCurrentWeekTime');
+    const newCurrentWeekTotal = addDates(oldCurrentWeekTotal.textContent, duration);
+    currentWeekTimeTag.textContent = newCurrentWeekTotal;
     updateColor(totalTimeSpanTag.textContent, totalTimeSpanTag.parentElement);
 }
 
@@ -204,11 +215,11 @@ function createNewDiv(className, time){
     return newDiv;
 }
 
-function hiddenTotalTime(time){
+function hiddenTotalTime(time,className){
     const newDiv = document.createElement('div');
     newDiv.style.setProperty('display','none');
     const spanElement = document.createElement('span');
-    spanElement.id = 'oldTotalTime';
+    spanElement.id = className;
     spanElement.textContent = time;
     newDiv.append(spanElement);
     return newDiv;
@@ -241,6 +252,19 @@ function updateColor(newTotal,totalDivTag){
     //     // totalDivTag.style.setProperty('color','#ffe3e3');
     //     totalDivTag.style.setProperty('color','#ff0000');
     // }
+}
+
+function setupWeekTimeUpdater(){
+    const paragraphs = document.getElementsByTagName('p');
+    for (let i = 0; i < paragraphs.length; i++) {
+        const paragraph = paragraphs[i];
+        if (paragraph.textContent.trim() === 'Current Week') {
+            const currentWeekDiv = paragraph.parentNode.parentNode;
+            const currentWeekTimeTag = currentWeekDiv.lastChild;
+            currentWeekTimeTag.id = 'currentWeekTime';
+            currentWeekDiv.appendChild(hiddenTotalTime(currentWeekTimeTag.textContent,'oldCurrentWeekTime'));
+        }
+    }
 }
 
 
